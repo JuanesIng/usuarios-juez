@@ -2,16 +2,16 @@ from sqlalchemy import Column, Integer, String, Enum
 from .database import Base
 import enum
 
-class UsuarioRol(str, enum.Enum):
-    usuario = "usuario"
+class UserRole(str, enum.Enum):
+    user = "user"
     admin = "admin"
 
-class Usuario(Base):
-    __tablename__ = "usuarios"
+class User(Base):
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombreUsu = Column(String, unique=True, index=True, nullable=False)
-    apellidoUsu = Column(String, unique=True, index=True, nullable=False)
-    contrasenna = Column(String, unique=True, index=True, nullable=False)
+    first_name = Column(String, unique=True, index=True, nullable=False)
+    last_name = Column(String, unique=True, index=True, nullable=False)
+    password = Column(String, unique=True, index=True, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
-    rol = Column(Enum(UsuarioRol), default=UsuarioRol.usuario)
+    role = Column(Enum(UserRole), default=UserRole.user)

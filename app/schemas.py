@@ -2,28 +2,32 @@ from pydantic import BaseModel
 from typing import Optional
 from enum import Enum
 
-class UsuarioRol(str, Enum):
-    usuario = "usuario"
+class UserRole(str, Enum):
+    user = "user"
     admin = "admin"
 
-class UsuarioBase(BaseModel):
-    nombreUsu: str
-    apellidoUsu: str
-    contrasenna: str
+class UserBase(BaseModel):
+    first_name: str
+    last_name: str
+    password: str
     email: str
-    rol: UsuarioRol = UsuarioRol.usuario
+    role: UserRole = UserRole.user
 
-class UserCreate(UsuarioBase):
+class UserCreate(UserBase):
     pass
 
-class ActualizarUsuario(BaseModel):
-    nombreUsu: Optional[str]
-    apellidoUsu: Optional[str]
-    contrasenna: Optional[str]
-    rol: Optional[UsuarioRol]
+class UserUpdate(BaseModel):
+    first_name: Optional[str]
+    last_name: Optional[str]
+    password: Optional[str]
+    role: Optional[UserRole]
 
-class UserOut(UsuarioBase):
+class UserOut(UserBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True  
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
